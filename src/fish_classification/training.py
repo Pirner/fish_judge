@@ -5,13 +5,13 @@ from torchmetrics import Accuracy
 
 
 class FishClassificationModule(pl.LightningModule):
-    def __init__(self, model):
+    def __init__(self, model, n_classes: int):
         super(FishClassificationModule, self).__init__()
         self.model = model
         self.criterion = nn.BCELoss()
 
         self.test_preds = []
-        self.accuracy = Accuracy(task="binary", num_classes=2)
+        self.accuracy = Accuracy(task="multiclass", num_classes=n_classes)
 
     def forward(self, sample):
         x = sample
@@ -23,9 +23,8 @@ class FishClassificationModule(pl.LightningModule):
 
         preds = self(sample)
 
-        y_unsq = torch.unsqueeze(y, -1)
-        loss = self.criterion(preds, y_unsq)
-        acc = self.accuracy(preds, y_unsq)
+        loss = self.criterion(preds, y)
+        acc = self.accuracy(preds, y)
         self.log('train_loss', loss.item(), on_epoch=True, prog_bar=True)
         self.log('train_acc', acc, on_step=True, on_epoch=True, logger=True, prog_bar=True)
         return loss
@@ -34,10 +33,9 @@ class FishClassificationModule(pl.LightningModule):
         sample, y = batch
 
         preds = self(sample)
-        y_unsq = torch.unsqueeze(y, -1)
 
-        loss = self.criterion(preds, y_unsq)
-        acc = self.accuracy(preds, y_unsq)
+        loss = self.criterion(preds, y)
+        acc = self.accuracy(preds, y)
 
         self.log('val', acc, on_step=True, on_epoch=True, logger=True, prog_bar=True)
         self.log('val_loss', loss.item(), on_epoch=True, prog_bar=True)
