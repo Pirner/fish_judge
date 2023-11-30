@@ -22,7 +22,7 @@ def main():
                          max_epochs=6,
                          callbacks=[]
                          )
-    tmp = next(iter(train_loader))
+
     trainer.fit(model, train_loader, val_loader)
     print('Finished Training')
 

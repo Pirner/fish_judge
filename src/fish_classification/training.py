@@ -22,9 +22,8 @@ class FishClassificationModule(pl.LightningModule):
         sample, y = batch
 
         preds = self(sample)
-
         loss = self.criterion(preds, y)
-        acc = self.accuracy(preds, y)
+        acc = self.accuracy(preds, torch.argmax(y, dim=-1))
         self.log('train_loss', loss.item(), on_epoch=True, prog_bar=True)
         self.log('train_acc', acc, on_step=True, on_epoch=True, logger=True, prog_bar=True)
         return loss
