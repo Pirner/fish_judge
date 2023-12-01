@@ -3,6 +3,7 @@ import pytorch_lightning as pl
 from src.fish_classification.data import DataUtils
 from src.fish_classification.model_factory import ConvNextTiny
 from src.fish_classification.training import FishClassificationModule
+from src.modeling.custom_callbacks import TraceSavingCB
 
 
 def main():
@@ -20,8 +21,9 @@ def main():
     print('Started Training')
     trainer = pl.Trainer(accelerator='gpu',
                          max_epochs=6,
-                         callbacks=[]
-                         )
+                         callbacks=[
+                             TraceSavingCB(im_h=im_h, im_w=im_w, device='cuda'),
+                         ])
 
     trainer.fit(model, train_loader, val_loader)
     print('Finished Training')

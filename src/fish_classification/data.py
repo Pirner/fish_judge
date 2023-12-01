@@ -41,6 +41,7 @@ class DataUtils:
         content = [os.path.join(dataset_path, x) for x in content]
         for i, class_path in enumerate(content):
             im_paths = list(glob.glob(os.path.join(class_path, '**/*.png'), recursive=True))
+            im_paths = list(filter(lambda x: 'GT' not in x, im_paths))
             n = int(len(im_paths) * val_size)
             val_paths = im_paths[:n]
             train_paths = im_paths[n:]
