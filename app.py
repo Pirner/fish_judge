@@ -1,6 +1,6 @@
 import os
 
-from flask import Flask, request, abort
+from flask import Flask, request, abort, render_template
 import git
 import json
 import hmac
@@ -23,7 +23,8 @@ def is_valid_signature(x_hub_signature, data, private_key):
 
 @app.route('/')
 def hello_world():
-    return 'Hello from Fish Judge yay under construction!'
+    # return 'Hello from Fish Judge yay under construction!'
+    return render_template('index.html')
 
 
 @app.route('/update_server', methods=['POST'])
