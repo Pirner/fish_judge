@@ -23,7 +23,7 @@ def is_valid_signature(x_hub_signature, data, private_key):
 
 @app.route('/')
 def hello_world():
-    return 'Hello from Fish Judge yay 5!'
+    return 'Hello from Fish Judge yay under construction!'
 
 
 @app.route('/update_server', methods=['POST'])
