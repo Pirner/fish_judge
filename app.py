@@ -8,7 +8,7 @@ import hashlib
 
 
 app = Flask(__name__)
-w_secret = os.environ['WEBHOOK_SECRET']
+# w_secret = os.environ['WEBHOOK_SECRET']
 
 
 def is_valid_signature(x_hub_signature, data, private_key):
@@ -86,7 +86,7 @@ def webhook():
 
 
 def main():
-    pass
+    app.run()
 
 
 if __name__ == '__main__':
