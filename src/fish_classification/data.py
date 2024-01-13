@@ -40,7 +40,9 @@ class DataUtils:
         content = list(filter(lambda x: os.path.isdir(os.path.join(dataset_path, x)), os.listdir(dataset_path)))
         content = [os.path.join(dataset_path, x) for x in content]
         for i, class_path in enumerate(content):
-            im_paths = list(glob.glob(os.path.join(class_path, '**/*.png'), recursive=True))
+            im_paths_png = list(glob.glob(os.path.join(class_path, '**/*.png'), recursive=True))
+            im_paths_jpg = list(glob.glob(os.path.join(class_path, '**/*.jpg'), recursive=True))
+            im_paths = im_paths_jpg + im_paths_png
             im_paths = list(filter(lambda x: 'GT' not in x, im_paths))
             n = int(len(im_paths) * val_size)
             val_paths = im_paths[:n]
