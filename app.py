@@ -1,5 +1,6 @@
 import os
 
+import flask
 from flask import Flask, request, abort, render_template
 import git
 import json
@@ -19,6 +20,16 @@ def is_valid_signature(x_hub_signature, data, private_key):
     encoded_key = bytes(private_key, 'latin-1')
     mac = hmac.new(encoded_key, msg=data, digestmod=algorithm)
     return hmac.compare_digest(mac.hexdigest(), github_signature)
+
+
+@app.route("/classify", methods=['GET', 'POST'])
+def classify_view():
+    if flask.request.method == 'POST':
+        print('running post')
+        raise NotImplementedError('this post is under construction')
+    else:
+        print('running get')
+        return render_template('fish_classification.html')
 
 
 @app.route('/')
