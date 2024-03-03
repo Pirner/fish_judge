@@ -16,6 +16,7 @@ def main():
         im_h=im_h,
         im_w=im_w,
     )
+
     model = ConvNextTiny(num_classes=DataUtils.get_n_classes_from_dataset(dataset_path))
 
     model = FishClassificationModule(model=model, n_classes=DataUtils.get_n_classes_from_dataset(dataset_path))

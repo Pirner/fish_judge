@@ -1,11 +1,16 @@
 import os
 
+import cv2
+import numpy as np
 import flask
 from flask import Flask, request, abort, render_template
 import git
 import json
 import hmac
 import hashlib
+
+from src.fish_classification.inference import InferencePipeline
+from src import constants
 
 
 app = Flask(__name__)
@@ -26,7 +31,17 @@ def is_valid_signature(x_hub_signature, data, private_key):
 def classify_view():
     if flask.request.method == 'POST':
         print('running post')
-        raise NotImplementedError('this post is under construction')
+        image_file = flask.request.files.get('img', '').read()
+        np_img = np.fromstring(image_file, np.uint8)
+        img = cv2.imdecode(np_img, cv2.IMREAD_COLOR)
+
+        inf_pipeline = InferencePipeline(model_path=constants.model_path)
+        class_name = inf_pipeline.classify_fish_name(im=img)
+        # render the result in a final image
+        context = {
+            'model_result': class_name,
+        }
+        return render_template('fish_classification_response.html', **context)
     else:
         print('running get')
         return render_template('fish_classification.html')

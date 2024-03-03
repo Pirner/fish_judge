@@ -30,28 +30,25 @@
     </nav>
 
     {% block content %}
-    <section class="py-5 text-center container">
-        <div class="row py-lg-5">
-            <div class="col-lg-6 col-md-8 mx-auto">
-                <h1 class="fw-light">Fish Judge</h1>
-                <p class="lead text-muted">Classify your caught fish</p>
-                <p>
-                    <a href="#" class="btn btn-primary my-2">Under Construction</a>
-                    <a href="#" class="btn btn-secondary my-2">Under Construction</a>
-                </p>
+    <div class="container-fluid px-4 py-5 my-5 text-center">
+        <div class="lc-block d-block mx-auto mb-4">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512" width="5em" height="5em" lc-helper="svg-icon" fill="currentColor">
+                <path d="M248 8C111 8 0 119 0 256s111 248 248 248 248-111 248-248S385 8 248 8zm121.8 169.9l-40.7 191.8c-3 13.6-11.1 16.9-22.4 10.5l-62-45.7-29.9 28.8c-3.3 3.3-6.1 6.1-12.5 6.1l4.4-63.1 114.9-103.8c5-4.4-1.1-6.9-7.7-2.5l-142 89.4-61.2-19.1c-13.3-4.2-13.6-13.3 2.8-19.7l239.1-92.2c11.1-4 20.8 2.7 17.2 19.5z"></path>
+            </svg>
+        </div>
+        <div class="lc-block">
+            <div editable="rich">
+
+                <h2 class="display-5 fw-bold">Fish Classification Task</h2>
+
             </div>
         </div>
-    </section>
-
-    <form class="col-lg-6 offset-lg-3 "  method="post" enctype="multipart/form-data">
-        <div class="row justify-content-center">
-            <label for="img">Select image:</label>
-            <input type="file" id="img" name="img" accept="image/*">
+        <div class="container">
+          <div class="well">
+              Model Result: {{ model_result }}
+          </div>
         </div>
-        <div class="row justify-content-center">
-            <input type="submit" value="submit">
-        </div>
-    </form>
+    </div>
 
     {% endblock %}
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

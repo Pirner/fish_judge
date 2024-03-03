@@ -56,13 +56,13 @@ class FishClassificationDataset(Dataset):
 
         if self.transform is not None:
             aug = self.transform(image=img)
-            img = Image.fromarray(aug['image'])
+            img = aug['image']
 
         if self.transform is None:
             img = Image.fromarray(img)
 
-        t = T.Compose([T.ToTensor(), ])
-        img = t(img)
+        # t = T.Compose([T.ToTensor(), ])
+        # img = t(img)
         label = torch.from_numpy(label).long()
 
         label = label.type(torch.FloatTensor)

@@ -1,5 +1,6 @@
 import cv2
 import albumentations as A
+from albumentations.pytorch import ToTensorV2
 
 
 class FishTransforms:
@@ -16,8 +17,13 @@ class FishTransforms:
             A.HorizontalFlip(),
             A.VerticalFlip(),
             A.GridDistortion(p=0.2), A.RandomBrightnessContrast((0, 0.5), (0, 0.5)),
-            A.GaussNoise()]
-        )
+            A.GaussNoise(),
+            A.Normalize(
+                mean=[0.485, 0.456, 0.406],
+                std=[0.229, 0.224, 0.225],
+            ),
+            ToTensorV2(),
+        ])
 
         return t_train
 
@@ -33,6 +39,11 @@ class FishTransforms:
             A.Resize(im_h, im_w, interpolation=cv2.INTER_NEAREST),
             A.HorizontalFlip(),
             A.GridDistortion(p=0.2),
+            A.Normalize(
+                mean=[0.485, 0.456, 0.406],
+                std=[0.229, 0.224, 0.225],
+            ),
+            ToTensorV2(),
         ])
 
         return t_val
