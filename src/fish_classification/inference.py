@@ -20,9 +20,10 @@ class InferencePipeline:
         """
         model = torch.jit.load(self.model_path)
         model.cpu()
-
-        data = self.transforms(image=im)
-        x_in = data['image']
+        channels_first_im = np.moveaxis(im, -1, 0)
+        channels_first_im = torch.from_numpy(channels_first_im)
+        x_in = self.transforms(channels_first_im)
+        # x_in = data['image']
         x_in = torch.unsqueeze(x_in, dim=0)
         y = model(x_in)
         # convert prediction into string class
