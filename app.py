@@ -9,6 +9,9 @@ import json
 import hmac
 import hashlib
 
+import sys
+from os.path import dirname
+sys.path.append(dirname(__file__))
 from src.fish_classification.inference import InferencePipeline
 from src import constants
 
